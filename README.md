@@ -2,6 +2,8 @@
 
 <img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/163f207b-955c-4ca3-8b10-544dce2d0388" />
 
+**NOTE** this is a work in progress, so use it at your own risk.
+
 Pump up your functions! Automatically fill in the body of your methods/functions with AI, keeping your signatures and docs intact. Designed for Neovim, fully async, and with a virtual-text spinner that’s more persistent than your gym buddy during leg day.
 
 ## Features

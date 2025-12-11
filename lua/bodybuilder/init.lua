@@ -152,10 +152,16 @@ function M.fill_method_body()
       
       local lines = clean_response(result_text, signature)
       
-      -- Replace the placeholder line with the generated lines
-      -- The placeholder is at spinner_line (single line).
-      -- We replace [spinner_line, spinner_line+1) with new lines.
-      vim.api.nvim_buf_set_lines(bufnr, spinner_line, spinner_line+1, false, lines)
+      -- Ensure buffer is still valid and we are within range
+      if vim.api.nvim_buf_is_valid(bufnr) then
+          local current_lines = vim.api.nvim_buf_line_count(bufnr)
+          if spinner_line < current_lines then
+              -- Replace the placeholder line with the generated lines
+              -- The placeholder is at spinner_line (single line).
+              -- We replace [spinner_line, spinner_line+1) with new lines.
+              vim.api.nvim_buf_set_lines(bufnr, spinner_line, spinner_line+1, false, lines)
+          end
+      end
     end)
   })
 end

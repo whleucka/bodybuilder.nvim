@@ -4,8 +4,14 @@ M.defaults = {
   url = "http://localhost:11434/api/generate",
   model = "llama3", -- Change to your preferred model
   prompt_template = [[
-Fill in ONLY the body of the function below. Do NOT rewrite the signature.
-Respond only with valid code for the body. Do not wrap in markdown code blocks if possible, or I will have to strip them.
+You are an expert programmer. Your task is to implement the body of the function provided below.
+
+Strict Instructions:
+1. Return ONLY the code inside the function body.
+2. Do NOT return the function signature.
+3. Do NOT return the 'end' keyword.
+4. Do NOT wrap the code in markdown code blocks (```).
+5. Do NOT include any explanations or conversational text.
 
 Signature:
 %s

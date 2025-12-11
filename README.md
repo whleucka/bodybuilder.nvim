@@ -1,6 +1,7 @@
 # bodybuilder-nvim 💪
 
-<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/163f207b-955c-4ca3-8b10-544dce2d0388" />
+<img width="100%" alt="image" src="https://github.com/user-attachments/assets/ee51c1f6-9445-4ccc-a4a5-9d86c4bee4a7" />
+
 
 **NOTE** this is a work in progress, so use it at your own risk.
 

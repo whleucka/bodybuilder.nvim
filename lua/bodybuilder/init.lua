@@ -131,8 +131,10 @@ function M.fill_method_body()
   local signature = vim.api.nvim_buf_get_lines(bufnr, f_start_row, f_start_row+1, false)[1]
   local docs = ts.get_docstring(node)
   local file_context = ts.get_context(bufnr, node)
+  
+  local filetype = vim.bo[bufnr].filetype or "unknown"
 
-  local prompt = string.format(config.options.prompt_template, signature, docs, file_context)
+  local prompt = string.format(config.options.prompt_template, filetype, signature, docs, file_context)
 
   -- Indentation helpers
   local function get_indent(line_idx)

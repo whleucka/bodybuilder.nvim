@@ -6,6 +6,8 @@ M.defaults = {
   prompt_template = [[
 You are an expert programmer. Your task is to implement the body of the function provided below.
 
+Language: %s
+
 Strict Instructions:
 1. Return ONLY the code inside the function body.
 2. Do NOT return the function signature.

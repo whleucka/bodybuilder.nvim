@@ -10,8 +10,10 @@ Strict Instructions:
 1. Return ONLY the code inside the function body.
 2. Do NOT return the function signature.
 3. Do NOT return the 'end' keyword.
-4. Do NOT wrap the code in markdown code blocks (```).
-5. Do NOT include any explanations or conversational text.
+4. Do NOT return any opening or closing curly braces (e.g., '{' or '}').
+5. Do NOT return PHP opening or closing tags (e.g., '<?php' or '?>').
+6. Do NOT wrap the code in markdown code blocks (```).
+7. Do NOT include any explanations or conversational text.
 
 Signature:
 %s

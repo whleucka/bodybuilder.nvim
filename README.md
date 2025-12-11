@@ -3,7 +3,7 @@
 
 **NOTE** this is a work in progress, so use it at your own risk.
 
-Pump up your code! Automatically fill in the body of your methods/functions with AI, keeping your signatures and docs intact. Designed for Neovim, fully async, and with a virtual-text spinner that’s more persistent than your gym buddy during leg day.
+Pump up your code! Automatically fill in the body of your methods/functions with AI, keeping your signatures and docs intact. Designed for Neovim, fully async.
 
 ## Features
 

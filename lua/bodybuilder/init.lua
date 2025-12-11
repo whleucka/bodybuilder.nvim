@@ -222,7 +222,7 @@ function M.fill_method_body()
     stream = false
   }
 
-  curl.post(url, {
+  local ok, err = pcall(curl.post, url, {
     body = vim.fn.json_encode(payload),
     headers = {
       ["Content-Type"] = "application/json",
@@ -286,6 +286,12 @@ function M.fill_method_body()
       end
     end)
   })
+
+  if not ok then
+    spin_handle.stop()
+    vim.notify("AI Request Error: " .. tostring(err), vim.log.levels.ERROR)
+    vim.api.nvim_buf_set_lines(bufnr, spinner_line, spinner_line+1, false, { target_indent .. "Error 😢" })
+  end
 end
 
 return M

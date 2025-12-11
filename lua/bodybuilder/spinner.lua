@@ -32,8 +32,8 @@ function M.start(bufnr, line)
 
   return {
     stop = function()
-      timer:stop()
       if not timer:is_closing() then
+        timer:stop()
         timer:close()
       end
       if api.nvim_buf_is_valid(bufnr) then

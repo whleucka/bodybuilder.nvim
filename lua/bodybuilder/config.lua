@@ -16,6 +16,7 @@ Strict Instructions:
 5. Do NOT return PHP opening or closing tags (e.g., '<?php' or '?>').
 6. Do NOT wrap the code in markdown code blocks (```).
 7. Do NOT include any explanations or conversational text.
+8. Do NOT generate new function declarations or signatures within the body.
 
 Signature:
 %s

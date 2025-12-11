@@ -10,7 +10,6 @@ Pump up your functions! Automatically fill in the body of your methods/functions
 
 - **Treesitter Powered**: Smartly extracts function signature, docstrings, and context.
 - **Async & Non-blocking**: Uses `plenary.curl` to fetch completions without freezing the editor.
-- **Visual Feedback**: Shows a spinner (`⠋⠙⠹...`) inside the function body while generating.
 - **AI Backend Agnostic**: Works with any OpenAI-compatible API (Ollama, LocalAI, etc.).
 
 ## Installation

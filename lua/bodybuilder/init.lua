@@ -142,17 +142,33 @@ function M.fill_method_body()
     return line:match("^(%s*)") or ""
   end
   
-  -- Determine indentation from the closing line (usually correct indent for the block closing)
-  local base_indent_str = get_indent(end_row)
   local shift_width = vim.bo[bufnr].shiftwidth
   local expand_tab = vim.bo[bufnr].expandtab
   local indent_char = expand_tab and string.rep(" ", shift_width) or "\t"
-  local target_indent = base_indent_str .. indent_char
+  
+  -- Range to replace calculation
+  local replace_start, replace_end, base_indent_str
+  
+  -- Python and Lua usually have bodies that are "blocks" without wrapping braces in the same way C/JS do
+  -- (Lua 'end' is part of the parent function node usually, or we treat the inner block differently)
+  -- For Python, the body node IS the content.
+  if filetype == "python" or filetype == "lua" then
+    replace_start = start_row
+    replace_end = end_row + 1 -- end_row is inclusive, set_lines end is exclusive
+    
+    -- Base indent is the function definition's indent
+    base_indent_str = get_indent(f_start_row)
+  else
+    -- Default to C-style braced blocks { ... }
+    -- We want to keep the braces at start_row and end_row
+    replace_start = start_row + 1
+    replace_end = end_row
+    
+    -- Base indent from the closing brace
+    base_indent_str = get_indent(end_row)
+  end
 
-  -- Range to replace: (start_row + 1) up to end_row
-  -- This preserves the line with '{' (start_row) and '}' (end_row)
-  local replace_start = start_row + 1
-  local replace_end = end_row
+  local target_indent = base_indent_str .. indent_char
   
   -- UI: Clear body and show spinner
   -- We clear the content between braces

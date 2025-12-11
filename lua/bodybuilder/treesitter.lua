@@ -26,8 +26,10 @@ end
 
 function M.get_body_node(node)
   -- Try to find child by field name 'body'
-  local body = node:child_by_field_name("body")
-  if body then return body end
+  if node.child_by_field_name then
+    local body = node:child_by_field_name("body")
+    if body then return body end
+  end
   
   -- Fallback: iterate children and look for block-like types
   for child in node:iter_children() do

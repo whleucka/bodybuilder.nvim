@@ -36,12 +36,14 @@ local function clean_response(text, signature)
 
   -- 3. Heuristic: Strip duplicated signature if present
   -- Search first few lines (e.g. 5) for the signature
+  local stripped_signature = false
   if signature and #lines > 0 then
     local sig_norm = normalize(signature)
     local found_idx = nil
     
     for i = 1, math.min(#lines, 5) do
       local line_norm = normalize(lines[i])
+      -- exact match or substring match
       if line_norm == sig_norm or line_norm:find(sig_norm, 1, true) then
         found_idx = i
         break
@@ -53,26 +55,52 @@ local function clean_response(text, signature)
       for _ = 1, found_idx do
         table.remove(lines, 1)
       end
-      
-      -- If we stripped the signature, check if the last line is a closing brace/end for that wrapper
-      -- We'll assume the last line is the wrapper closer if it's just '}' or 'end'
-      if #lines > 0 then
-         local last_norm = normalize(lines[#lines])
-         if last_norm == "}" or last_norm == "end" then
-            table.remove(lines, #lines)
-         end
-      end
+      stripped_signature = true
     end
   end
 
+  -- Helper to check if a line is a closing brace
+  local function is_closing_brace(line)
+     local norm = normalize(line)
+     return norm == "}" or norm == "};" or norm == "}," or norm == "});" or norm == "end"
+  end
+
+  -- If we stripped the signature, we MUST check for the closing brace
+  if stripped_signature and #lines > 0 then
+     if is_closing_brace(lines[#lines]) then
+        table.remove(lines, #lines)
+     end
+  end
+
   -- 4. Strip surrounding braces { } if they appear to wrap the whole body
-  -- (Common in C-style languages where model returns { ... })
-  -- NOTE: If step 3 ran, it might have already stripped the wrapper braces if the signature was present.
-  -- This step catches cases where the model returns "{ ... }" WITHOUT the signature.
+  -- This handles cases where signature wasn't found (mismatch) OR signature was found but we need to check braces again?
+  -- Actually if stripped_signature is true, we handled the closing brace above.
+  -- But let's be safe. If we have { ... } wrapping the remaining content.
+  
   if #lines >= 2 then
     local first = normalize(lines[1])
     local last = normalize(lines[#lines])
-    if first == "{" and last == "}" then
+    
+    -- Check for basic { ... } wrapper
+    local is_wrapper = (first == "{" and last == "}")
+    
+    -- Check for "function ... { ... }" wrapper (AI hallucinated a new function signature)
+    -- If first line ends with { and last line is } (or }; etc)
+    if not is_wrapper and not stripped_signature then
+        local first_ends_brace = lines[1]:match("{%s*$")
+        local last_is_brace = is_closing_brace(lines[#lines])
+        
+        if first_ends_brace and last_is_brace then
+           -- Heuristic: Does the first line look like a function definition?
+           -- function, class, or arrow function
+           local l1 = lines[1]
+           if l1:match("function") or l1:match("=>") or l1:match("class") or l1:match("def") then
+              is_wrapper = true
+           end
+        end
+    end
+
+    if is_wrapper then
       table.remove(lines, 1)
       table.remove(lines, #lines)
     end

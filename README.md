@@ -23,7 +23,7 @@ Pump up your code! Automatically generate the body of your functions or methods 
 vim.pack.add({
   "https://github.com/nvim-lua/plenary.nvim",
   "https://github.com/nvim-treesitter/nvim-treesitter",
-  "https://github.com/whleucka/bodybuilder-nvim"
+  "https://github.com/whleucka/bodybuilder.nvim"
 })
 
 require("bodybuilder").setup({

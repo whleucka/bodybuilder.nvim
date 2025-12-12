@@ -4,6 +4,10 @@
 
 Pump up your code! Automatically generate the body of your functions or methods using AI, keeping your signatures and docstrings intact. Built for Neovim and fully async, so your workflow never skips a beat.
 
+https://github.com/user-attachments/assets/fd5c5d4b-fbb4-493a-9122-479bb3f2c758
+
+---
+
 ## Features
 
 - **Treesitter Powered**: Smartly extracts function signature, docstrings, and context.

@@ -1,4 +1,4 @@
-# bodybuilder.nvim
+# 💪 bodybuilder.nvim
 
 **WARNING** this is a work in progress, so use it at your own risk.
 

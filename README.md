@@ -28,14 +28,14 @@ vim.pack.add({
 
 require("bodybuilder").setup({
   model = "gemma3:270m",  -- Matches the NAME from your ollama list
-  keymap = "<leader>af",
+  keymap = "<leader>ab",
 })
 ```
 
 ## Usage
 
 1.  Move cursor to any line inside a function definition.
-2.  Press `<leader>af` (or your configured keymap).
+2.  Press `<leader>ab` (or your configured keymap).
 3.  Wait for the spinner to finish.
 4.  The body will be replaced with the AI generated code.
 
@@ -48,7 +48,7 @@ require("bodybuilder").setup({
   url = "http://localhost:11434/api/generate", -- Endpoint (Ollama default)
   model = "llama3",
   prompt_template = "...", -- See config.lua for default
-  keymap = nil, -- Set to string (e.g. '<leader>af') to auto-register
+  keymap = nil, -- Set to string (e.g. '<leader>ab') to auto-register
   timeout = 10000, -- Timeout in milliseconds (default: 10000)
 })
 ```

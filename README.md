@@ -1,5 +1,4 @@
-<img width="100%" alt="image" src="https://github.com/user-attachments/assets/ee51c1f6-9445-4ccc-a4a5-9d86c4bee4a7" />
-
+# bodybuilder.nvim
 
 **WARNING** this is a work in progress, so use it at your own risk.
 
